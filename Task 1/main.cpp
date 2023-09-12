@@ -1,4 +1,5 @@
-﻿#include <iostream>
+//Вариант 1
+#include <iostream>
 
 float GetTriangleArea(float a, float b, float c) {
     float p = (a + b + c) / 2;                           //Полупериметр понадобится нам для вычисления площади по формуле Герона

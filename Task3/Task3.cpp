@@ -6,7 +6,7 @@ int Task3()
 
     int a, b, c;
 
-    std::cout << "Ââåäèòå ÷èñëà A, B, C: \n";
+    std::cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã·Ã¨Ã±Ã«Ã  A, B, C: \n";
     std::cin >> a >> b >> c;
 
     if (!(a % c) && !(b % c)) std::cout << ((a + b) / c);

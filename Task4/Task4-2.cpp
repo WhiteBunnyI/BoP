@@ -1,10 +1,12 @@
 ﻿#include <iostream>
-
+/*
+Дано натуральное число N (N<10^9). 
+Найти произведение нечетных цифр числа N.
+*/
 int main()
 {
-    int n;
+    int n = 535135;
     int mul = 1;
-    std::cin >> n;
 
     while (n)
     {

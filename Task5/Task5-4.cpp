@@ -10,11 +10,10 @@ int main()
 {
     const int N = 5;
     int mas[N*2];
-    int len = N;
 
     for (int i = 0; i < N; i++) std::cin >> mas[i];			//Заполняем массив
 
-    for (int i = 0; i < len; i++) 							//Дублируем и удаляем элементы
+    for (int i = 0; i < N; i++) 							//Дублируем и удаляем элементы
     {
         mas[N + i] = mas[i];
         mas[i] = 0;

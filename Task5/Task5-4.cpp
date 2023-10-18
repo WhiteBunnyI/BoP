@@ -1,45 +1,35 @@
 ﻿#include <iostream>
 /*
-Сначала введите последовательность. 
-Затем удалите и продублируйте элементы. 
-Затем выведите полученную последовательность (каждый элемент по одному разу). 
+Сначала введите последовательность.
+Затем удалите и продублируйте элементы.
+Затем выведите полученную последовательность (каждый элемент по одному разу).
 Используйте в программе только один массив.
 */
 
 int main()
 {
     const int N = 5;
-    int mas[N];
+    int mas[N*2];
+    int len = N;
 
-    for (int i = 0; i < N; i++) std::cin >> mas[i];
+    for (int i = 0; i < N; i++) std::cin >> mas[i];			//Заполняем массив
 
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < len; i++) 							//Дублируем и удаляем элементы
     {
-        int temp = mas[i];
+        mas[N + i] = mas[i];
         mas[i] = 0;
-        mas[i] = temp;
     }
 
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++) std::cout << mas[i] << " ";	//Выводим массив
+    std::cout << "\n";
+
+    for (int i = 0; i < N; i++) 							//Возвращаем элементы 
     {
-        bool found = false;
-        if (i == 0)
-        {
-            std::cout << mas[i] << " ";
-            continue;
-        }
-        for (int o = 0; o < i; o++)
-        {
-            if (mas[i] == mas[o])
-            {
-                found = true;
-                break;
-            }
-        }
-        if(!found) std::cout << mas[i] << " ";
-        
+        mas[i] = mas[N + i];
     }
+
+    for (int i = 0; i < N; i++) std::cout << mas[i] << " ";	//Выводим массив
+    std::cout << "\n";
+
     return 0;
 }
-
-

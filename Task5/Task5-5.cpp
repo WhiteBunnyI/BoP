@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 
 /*
-Дана последовательность натуральных чисел {Aj}j=1...n (n<=10000). 
-Удалить из последовательности числа, 
-сумма цифр которых кратна 7, 
-а среди оставшихся продублировать числа, 
+Дана последовательность натуральных чисел {Aj}j=1...n (n<=10000).
+Удалить из последовательности числа,
+сумма цифр которых кратна 7,
+а среди оставшихся продублировать числа,
 содержащие хотя бы пару одинаковых цифр.
 */
 
@@ -20,12 +20,12 @@ int SumDigits(int num)
 }
 bool IsHavePair(int num)
 {
-    int digits[10]{ 0,0,0,0,0,0,0,0,0,0 };
+    bool digits[10]{ 0,0,0,0,0,0,0,0,0,0 };
     while (num)
     {
         int d = num % 10;
         if (digits[d]) return true;
-        digits[d] = 1;
+        digits[d] = true;
         num /= 10;
     }
     return false;
@@ -33,55 +33,38 @@ bool IsHavePair(int num)
 
 int main()
 {
-    const int N = 100;
-    int mas[N*2];
+    const int N = 10;
+    int mas[N * 2];
+    int len = N;
 
-    for (int i = 0; i < N; i++)
-    {
-        mas[i] = i + 1;
-    }
+    for (int i = 0; i < N; i++) std::cin >> mas[i]; //Заполняем массив
 
-    int leftEmpty = -1;
     int rightEmpty = N;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < len; i++)
     {
-        if (SumDigits(mas[i]) % 7 == 0) //Если сумма цифр числа кратна 7, удаляем число
+        if (SumDigits(mas[i]) % 7 == 0)             //Если сумма цифр числа кратна 7, удаляем число
         {
-            mas[i] = 0;
-            if (leftEmpty == -1 || leftEmpty > i) leftEmpty = i; //Ставим левый указатель, если он пустой, на удаленную ячейку
+            for (int o = i + 1; o < len; o++)
+            {
+                mas[o - 1] = mas[o];
+            }
+            len--;
+            i--;
             continue;
         }
-        if (IsHavePair(mas[i]))
+        if (IsHavePair(mas[i]))                     //Дублируем, если у числа есть пара одинаковых цифр
         {
-            if (leftEmpty != -1) //Если указатель слева указывает на "пустую" ячейку, то
+            for (int o = len - 1; o >= i; o--)
             {
-                mas[leftEmpty] = mas[i]; //Дублируем число в эту ячейку
+                mas[o + 1] = mas[o];
 
-                bool found = false;
-                for (int o = leftEmpty; o < i; o++) //Проходим от левого указателя до текущего положения
-                {
-                    if (mas[o] == 0) //Если есть "пустая" ячейка, то ставим указатель на него
-                    {
-                        found = true;
-                        leftEmpty = o;
-                        break;
-                    }
-                }
-
-                if(!found) leftEmpty = -1; //Если же "пустой" ячейки не нашлось, то указатель не будет ни на что указывать)
-                
             }
-            else                //Иначе дублируем число в правый указатель
-            {
-                mas[rightEmpty] = mas[i];
-                rightEmpty++;
-            }
-            
+            len++;
+            i++;
         }
-
     }
 
-    for (int i = 0; i < std::size(mas); i++) std::cout << mas[i] << " "; //Выводим массив
+    for (int i = 0; i < len; i++) std::cout << mas[i] << " "; //Выводим массив
 
     return 0;
 }

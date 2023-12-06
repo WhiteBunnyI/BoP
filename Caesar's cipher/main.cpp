@@ -3,7 +3,7 @@
 
 bool IsUpperChar(char chr) { return (chr >= 'A' && chr <= 'Z'); }
 bool IsLowerChar(char chr) { return (chr >= 'a' && chr <= 'z'); }
-bool IsPunMark(char chr) { return chr == '!' || chr == ',' || chr == '.' || chr == ' '; }
+bool IsPunMark(char chr) { return chr == '!' || chr == ',' || chr == '.' || chr == ' ' || chr == ':'; }
 
 void Encrypt()
 {
@@ -42,12 +42,12 @@ void Encrypt()
 		else if (IsPunMark(currentChr))
 		{
 			int pos;
-			for (pos = 0; pos < 4; pos++)
+			for (pos = 0; pos < 5; pos++)
 			{
 				if (currentChr == PunChars[pos]) break;
 			}
 			pos += keyPunMarks;
-			if (pos > 3) pos -= 4;
+			if (pos > 4) pos -= 5;
 			currentChr = PunChars[pos];
 		}
 		out << currentChr;
@@ -99,12 +99,12 @@ void Decrypt()
 		else if (IsPunMark(currentChr))
 		{
 			int pos;
-			for (pos = 0; pos < 4; pos++)
+			for (pos = 0; pos < 5; pos++)
 			{
 				if (currentChr == PunChars[pos]) break;
 			}
 			pos -= keyPunMarks;
-			if (pos < 0) pos += 4;
+			if (pos < 0) pos += 5;
 			currentChr = PunChars[pos];
 		}
 		out << currentChr;

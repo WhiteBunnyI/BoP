@@ -32,7 +32,6 @@ int main()
 		in >> temp->data;
 		temp->next = nullptr;
 		
-
 		current->next = temp;
 		current = temp;
 
@@ -44,31 +43,30 @@ int main()
 
 	if (!isHavePrime)
 	{
-		Node* first = root;
-		Node* second = first->next;
-
-		while (first->next != nullptr)
-		{
-			int sum_First = func::SumOfDigits(first->next->data);
-			while (second != nullptr && second->next != nullptr)
-			{
-				int sum_Second = func::SumOfDigits(second->next->data);
-
-				if (sum_First > sum_Second)
-				{
-					list::SwapNextNodes(first, second);
-					sum_First = sum_Second;
-				}
-				second = second->next;
-			}
-			first = first->next;
-			second = first->next;
-		}
-
+		list::SortList(root);
 		list::PrintList(root);
 
 		return 0;
 	}
+	current = root;
+
+	while (current->next != nullptr)
+	{
+		int firstDigit = func::GetFirstDigit(current->next->data);
+		if (firstDigit == 7)
+		{
+			list::DeleteNextNode(current);
+			continue;
+		}
+		if (firstDigit == 3)
+		{
+			list::DuplicateNextNode(current);
+			current = current->next;
+		}
+		current = current->next;
+	}
+
+	list::PrintList(root);
 
 	return 0;
 }

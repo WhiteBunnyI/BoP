@@ -6,4 +6,8 @@ namespace func
 	int SumOfDigits(int n);
 
 	int GetFirstDigit(int n);
+
+	bool IsHaveEvenDigit(int n);
+
+	bool isHaveDigitInNum(int num, int digit);
 }

@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 include_directories("inc/")
 
 # Сказать программе, что должен быть исполняемый файл
-add_executable("${PROJECT_NAME}" main.cpp)
+add_executable("${PROJECT_NAME}" main.cpp
+								inc/Ellipse.hpp src/Ellipse.cpp)
 
 #file(COPY "assets/" DESTINATION "/")

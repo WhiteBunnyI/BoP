@@ -8,11 +8,10 @@ class Ellipse
 	int m_b;
 
 public:
-	Ellipse() = default;
 
 	Ellipse(int x, int y, int a, int b);
 
-	~Ellipse() = default;
+	~Ellipse();
 
 	void SetCoords(int x, int y);
 

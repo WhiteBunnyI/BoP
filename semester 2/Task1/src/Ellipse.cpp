@@ -11,6 +11,8 @@ Ellipse::Ellipse(int x, int y, int a, int b)
 	m_b = b;
 }
 
+Ellipse::~Ellipse() {}
+
 void Ellipse::SetCoords(int x, int y)
 {
 	m_x = x;

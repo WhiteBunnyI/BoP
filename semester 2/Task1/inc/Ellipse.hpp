@@ -2,25 +2,31 @@
 
 class Ellipse
 {
-	float m_x;
-	float m_y;
-	float m_a;
-	float m_b;
+	int m_x;
+	int m_y;
+	int m_a;
+	int m_b;
 
 public:
 	Ellipse() = default;
 
-	Ellipse(float x, float y, float a, float b);
+	Ellipse(int x, int y, int a, int b);
 
-	~Ellipse();
+	~Ellipse() = default;
 
-	void SetCoords(float x, float y);
+	void SetCoords(int x, int y);
 
-	void SetLenSemiAxes(float a, float b);
+	void SetLenSemiAxes(int a, int b);
 
 	float GetSquare();
 
 	float GetPerimeter();
 
+	int GetCoord_X();
 
+	int GetCoord_Y();
+
+	int GetLenSemiAxe_A();
+
+	int GetLenSemiAxe_B();
 };

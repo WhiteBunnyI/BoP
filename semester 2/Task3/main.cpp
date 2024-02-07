@@ -27,5 +27,10 @@ int main()
 	std::cout << str.C_str() << std::endl;
 	std::cout << str.At(4) << std::endl;
 
+	my::String test("Text");
+
+	std::cout << test << std::endl;
+	test += '!';
+	std::cout << test << std::endl;
 
 }

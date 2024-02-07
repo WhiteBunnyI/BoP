@@ -7,11 +7,13 @@ class Matrix
 	int** m_matrix;
 
 public:
-	Matrix(int row, int column);
-	Matrix(const Matrix& other);
-	Matrix& operator =(Matrix other);
-	Matrix& operator +(const Matrix& other);
-	Matrix& operator -(const Matrix& other);
+	Matrix(int row, int column);				//Конструктор
+	Matrix(const Matrix& other);				//Конструктор копирования
+	Matrix& operator =(Matrix other);			//Оператор присваивания копированием
+	Matrix& operator +(const Matrix& other);	//фича
+	Matrix& operator +=(const Matrix& other);	//фича
+	Matrix& operator -=(const Matrix& other);	//фича
+	Matrix& operator -(const Matrix& other);	//фича
 	~Matrix();
 	int GetCountRow();
 	int GetCountColumn();

@@ -45,6 +45,38 @@ Matrix& Matrix::operator +(const Matrix& other)
 	return *this;
 }
 
+Matrix& Matrix::operator +=(const Matrix& other)
+{
+	if (m_row != other.m_row || m_column != other.m_column)
+		return *this;
+
+	for (int i = 0; i < m_row; i++)
+	{
+		for (int o = 0; o < m_column; o++)
+		{
+			m_matrix[i][o] += other.GetValue(i, o);
+		}
+	}
+
+	return *this;
+}
+
+Matrix& Matrix::operator -=(const Matrix& other)
+{
+	if (m_row != other.m_row || m_column != other.m_column)
+		return *this;
+
+	for (int i = 0; i < m_row; i++)
+	{
+		for (int o = 0; o < m_column; o++)
+		{
+			m_matrix[i][o] -= other.GetValue(i, o);
+		}
+	}
+
+	return *this;
+}
+
 Matrix& Matrix::operator -(const Matrix& other)
 {
 	if (m_row != other.m_row || m_column != other.m_column)

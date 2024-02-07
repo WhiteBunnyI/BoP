@@ -33,5 +33,13 @@ int main()
 	mat.Print();
 	mat1.Print();
 
+	mat += mat1;
+	mat.Print();
+	mat1.Print();
+
+	mat1 -= mat;
+	mat.Print();
+	mat1.Print();
+
 	return 0;
 }

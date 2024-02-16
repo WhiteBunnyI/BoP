@@ -9,11 +9,11 @@ class BigInt
 public:
 	BigInt(char* num);
 
-	BigInt& operator+=(const BigInt& other);
-	BigInt operator+(const BigInt& other);
+	BigInt& operator+=(BigInt& other);
+	BigInt operator+(BigInt& other);
 
-	BigInt& operator*=(const BigInt& other);
-	BigInt operator*(const BigInt& other);
+	BigInt& operator*=(BigInt& other);
+	BigInt operator*(BigInt& other);
 
 	bool operator<(const BigInt& other);
 	bool operator>(const BigInt& other);

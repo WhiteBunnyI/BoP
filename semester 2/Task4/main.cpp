@@ -2,7 +2,10 @@
 
 int main()
 {
-	std::cout << (-3 % 10);
+	BigInt n1("-5001");
+	BigInt n2("-5000");
+	std::cout << (n1 < n2) << std::endl;
+	std::cout << (n2 != n1);
 	return 0;
 	BigInt num1("123");
 	BigInt num2("-200");

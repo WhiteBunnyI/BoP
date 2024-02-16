@@ -3,9 +3,16 @@
 
 int main()
 {
+	my::String s("bla");
+	my::String ss("abc");
+	s += ss;
+	std::cout << s;
+	return 0;
+
 	my::String str("Hello");
-	my::String str1("World");
-	std::cout << str << std::endl << str1 << std::endl;
+	my::String str1("WorldkdfhkdfhgkdfhgkdjfhgkdfhgkjdhfkgjhdfjkghdfkhgeriuhjkvdfWorldkdfhkdfhgkdfhgkdjfhgkdfhgkjdhfkgjhdfjkghdfkhgeriuhjkvdf");
+	std::cout << str << std::endl;
+	std::cout << str1 << std::endl;
 
 	my::String str2 = str;
 	std::cout << str2 << std::endl;
@@ -18,7 +25,7 @@ int main()
 	str3 += " AbcD";
 	std::cout << str3 << std::endl;
 
-	my::String str4(0);
+	my::String str4("");
 	std::cin >> str4;
 	std::cout << str4 << std::endl;
 
@@ -27,9 +34,8 @@ int main()
 	std::cout << str.C_str() << std::endl;
 	std::cout << str.At(4) << std::endl;
 
-	my::String test("Text");
+	my::String test("Textdkjfsfgsdgsdgsfgsfgsfgdfgf");
 
-	std::cout << test << std::endl;
 	test += '!';
 	std::cout << test << std::endl;
 

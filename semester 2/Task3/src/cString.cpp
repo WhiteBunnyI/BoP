@@ -2,16 +2,10 @@
 
 namespace my
 {
-	String::String(int len)
-	{
-		m_len = 0;
-		m_capacity = len;
-		m_str = new char[m_capacity];
-	}
 	String::String(char* str)
 	{
-		m_len = strlen(str) + 1;
-		m_capacity = (m_len / 32 + 1) * 32;
+		m_len = strlen(str);
+		m_capacity = ((m_len+1) / 32 + 1) * 32;
 		m_str = new char[m_capacity];
 		std::copy(str, str + m_len, m_str);
 	}
@@ -19,7 +13,7 @@ namespace my
 	String::String(const String& other)
 	{
 		m_len = other.m_len;
-		m_capacity = (m_len / 32 + 1) * 32;
+		m_capacity = other.m_capacity;
 		m_str = new char[m_capacity];
 		std::copy(other.m_str, other.m_str + m_len, m_str);
 	}
@@ -28,7 +22,8 @@ namespace my
 	{
 		delete[] m_str;
 		m_len = other.m_len;
-		m_str = new char[m_len];
+		m_capacity = other.m_capacity;
+		m_str = new char[m_capacity];
 		std::copy(other.m_str, other.m_str + m_len, m_str);
 		return *this;
 	}
@@ -40,40 +35,44 @@ namespace my
 
 	String& String::operator+=(const String& other)
 	{
-		if (m_capacity < m_len + other.m_len - 1)
+		int l_chr = m_len;
+		m_len += other.m_len - 1;
+
+		if (m_capacity < m_len)
 		{
-			String temp(*this);
-			std::swap(*this, temp);
+			RecalculateCapacity();
 		}
 		
-		std::copy(other.m_str, other.m_str + other.m_len, m_str + m_len - 1);
-		m_len += other.m_len - 1;
+		std::copy(other.m_str, other.m_str + other.m_len, m_str + l_chr - 1);
 		
 		return *this;
 	}
 	String& String::operator+=(const char* other)
 	{
+		int l_chr = m_len;
 		size_t len = strlen(other);
-		if (m_capacity < m_len + len)
+		m_len += len;
+
+		if (m_capacity < m_len)
 		{
-			String temp(*this);
-			std::swap(*this, temp);
+			RecalculateCapacity();
 		}
 
-		std::copy(other, other + len + 1, m_str + m_len - 1);
-		m_len += len;
+		std::copy(other, other + len + 1, m_str + l_chr - 1);
 		return *this;
 	}
 	String& String::operator+=(const char other)
 	{
-		if (m_capacity < m_len + 1)
-		{
-			String temp(*this);
-			std::swap(*this, temp);
-		}
-		m_str[m_len-1] = other;
-		m_str[m_len] = '\0';
+		int l_chr = m_len;
 		m_len += 1;
+
+		if (m_capacity < m_len)
+		{
+			RecalculateCapacity();
+		}
+
+		m_str[l_chr - 1] = other;
+		m_str[l_chr] = '\0';
 		return *this;
 	}
 
@@ -149,7 +148,7 @@ namespace my
 		is.getline(str, 10000);
 		String temp(str);
 		std::swap(temp, obj);
-		obj.m_capacity = temp.m_capacity;					//wtf почему не меняется capacity?!?!
+		obj.m_capacity = temp.m_capacity;
 		return is;
 	}
 
@@ -178,7 +177,12 @@ namespace my
 		return m_str[idx];
 	}
 
-
-
-
+	void String::RecalculateCapacity()
+	{
+		m_capacity = (m_len / 32 + 1) * 32;
+		char* temp = new char[m_capacity];
+		std::copy(m_str, m_str + m_len + 1, temp);
+		std::swap(temp, m_str);
+		delete[] temp;
+	}
 }

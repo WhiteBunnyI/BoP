@@ -10,7 +10,6 @@ namespace my
 		size_t m_capacity;
 
 	public:
-		String(int len);
 		String(char* str);
 		String(const String& other);
 		String& operator=(String& other);
@@ -23,8 +22,6 @@ namespace my
 		String operator+(const String& other);
 		String operator+(const char* other);
 		String operator+(const char other);
-
-
 
 		char& operator[](std::size_t idx);
 
@@ -39,6 +36,7 @@ namespace my
 		int Length();
 		char* C_str();
 		char& At(size_t idx);
+		void RecalculateCapacity();
 	};
 
 }

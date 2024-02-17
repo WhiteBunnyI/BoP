@@ -22,4 +22,6 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, BigInt& obj);
 	friend std::istream& operator>>(std::istream& is, BigInt& obj);
+
+	char GetSign() const;
 };

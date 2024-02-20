@@ -8,11 +8,10 @@ BigInt::BigInt(char* num)
 	m_len = m_str[1000 - m_len] == '-' ? m_len - 1 : m_len;
 }
 
+
 BigInt& BigInt::operator+=(BigInt& other)
 {
-	char temp[1001];
-	temp[1000] = '\0';
-	char* dest = &temp[999];
+	char* dest = &m_str[999];
 
 	char* chr_1 = &m_str[999];
 	char* chr_2 = &other.m_str[999];
@@ -47,9 +46,12 @@ BigInt& BigInt::operator+=(BigInt& other)
 	for (int i = 0; i < l_max || next; i++)
 	{
 		char add = next;
-		next = -1;							//-1 т.к. добавляю +10
-
-		add += (*chr_1 - 48) + 10;
+		next = 0;							
+		if (*chr_1 > 47 && *chr_1 < 58)
+		{
+			add += (*chr_1 - 48) + 10;
+			next--;
+		}
 
 		if (*chr_2 > 48 && *chr_2 < 58)
 			add += (*chr_2 - 48) * sign_2 * sign_1;			//складываем либо вычитаем в зависимости от знаков чисел
@@ -64,20 +66,18 @@ BigInt& BigInt::operator+=(BigInt& other)
 	}
 
 	l_max = strlen(dest);
+	m_len = l_max;
 	for (int i = 0; i < l_max; i++)							//Избавляемся от лишних символов и нулей в начале и просчитываем кол-во разрядов в числе
 	{
 		if (*dest > '0' && *dest <= '9') break;
 		dest++;
-		l_max--;
+		m_len--;
 	}
 	if (sign_1 == -1)										//Т.к. 1 число у нас было больше 2 числа по абсолютному значению, то от сохранит свой знак
 	{
 		dest--;
 		*dest = '-';
 	}
-
-	m_len = l_max;
-	std::swap(m_str, temp);
 	return *this;
 
 }
@@ -91,8 +91,54 @@ BigInt BigInt::operator+(BigInt& other)
 
 BigInt& BigInt::operator*=(BigInt& other)
 {
-	return *this;
+	char sign_1 = this->GetSign();
+	char sign_2 = other.GetSign();
+	char* chr_1 = &m_str[999];
+	char* chr_2 = &other.m_str[999];
 
+	int l_max = m_len;
+	if (m_len < other.m_len)											//5000+    (1)
+	{																	// 123     (2)
+		l_max = other.m_len;											//наверху у нас всегда самый большой разряд
+		std::swap(chr_1, chr_2);										//
+		std::swap(sign_1, sign_2);
+	}
+
+	unsigned int next = 0;
+	for (int i = 0; i < l_max || next; i++)
+	{
+		unsigned int add = next;
+		next = 0;
+
+		if(*chr_1 > 48 && *chr_1 < 58)
+			add += (*chr_1 - 48);
+
+		if (*chr_2 > 48 && *chr_2 < 58)
+			add *= (*chr_2 - 48);			//умножаем числа
+
+		next += add / 10;
+		add %= 10;
+
+		chr_1--;
+		chr_2--;
+	}
+
+	//l_max = strlen(dest);
+	//for (int i = 0; i < l_max; i++)							//Избавляемся от лишних символов и нулей в начале и просчитываем кол-во разрядов в числе
+	//{
+	//	if (*dest > '0' && *dest <= '9') break;
+	//	dest++;
+	//	l_max--;
+	//}
+	//if (sign_1 * sign_2 == -1)										//Определяем знак у числа
+	//{
+	//	dest--;
+	//	*dest = '-';
+	//}
+
+	m_len = l_max;
+
+	return *this;
 }
 
 BigInt BigInt::operator*(BigInt& other)

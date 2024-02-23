@@ -1,4 +1,5 @@
 #include <BigInt.hpp>
+#include <vector>
 
 BigInt::BigInt(char* num)
 {
@@ -73,7 +74,7 @@ BigInt& BigInt::operator+=(BigInt& other)
 		dest++;
 		m_len--;
 	}
-	if (sign_1 == -1)										//Т.к. 1 число у нас было больше 2 числа по абсолютному значению, то от сохранит свой знак
+	if (sign_1 == -1)										//Т.к. 1-ое число у нас было больше 2-ого числа по абсолютному значению, то от сохранит свой знак
 	{
 		dest--;
 		*dest = '-';
@@ -94,56 +95,52 @@ BigInt& BigInt::operator*=(BigInt& other)
 	char sign_1 = this->GetSign();
 	char sign_2 = other.GetSign();
 	char* chr_1 = &m_str[999];
-	char* chr_2 = &other.m_str[999];
+	char* chr_2;
+	BigInt result("0");
+	char str[1001];
+	str[1000] = '\0';
+	for (int i = 0; i < m_len; i++)
+	{	
+		char* dest = &str[999];
+		chr_2 = &other.m_str[999];
 
-	int l_max = m_len;
-	if (m_len < other.m_len)											//5000+    (1)
-	{																	// 123     (2)
-		l_max = other.m_len;											//наверху у нас всегда самый большой разряд
-		std::swap(chr_1, chr_2);										//
-		std::swap(sign_1, sign_2);
-	}
-
-	unsigned int next = 0;
-	for (int i = 0; i < l_max || next; i++)
-	{
-		unsigned int add = next;
-		next = 0;
-
-		if(*chr_1 > 48 && *chr_1 < 58)
-			add += (*chr_1 - 48);
-
-		if (*chr_2 > 48 && *chr_2 < 58)
-			add *= (*chr_2 - 48);			//умножаем числа
-
-		next += add / 10;
-		add %= 10;
-
+		unsigned int next = 0;
+		for (int o = 0; o < i; o++)
+		{
+			*dest = '0';
+			dest--;
+		}
+		for (int o = 0; o < other.m_len || next; o++)
+		{
+			unsigned int add = next;
+			if (*chr_2 > '0' && *chr_2 <= '9')
+			{
+				add += (*chr_1 - 48) * (*chr_2 - 48);
+			}
+			next = add / 10;
+			add %= 10;
+			*dest = add + 48;
+			dest--;
+			chr_2--;
+		}
+		BigInt temp(dest);
+		result += temp;
 		chr_1--;
-		chr_2--;
 	}
-
-	//l_max = strlen(dest);
-	//for (int i = 0; i < l_max; i++)							//Избавляемся от лишних символов и нулей в начале и просчитываем кол-во разрядов в числе
-	//{
-	//	if (*dest > '0' && *dest <= '9') break;
-	//	dest++;
-	//	l_max--;
-	//}
-	//if (sign_1 * sign_2 == -1)										//Определяем знак у числа
-	//{
-	//	dest--;
-	//	*dest = '-';
-	//}
-
-	m_len = l_max;
-
+	if (sign_1 * sign_2 == -1)
+	{
+		result.m_str[999 - result.m_len] = '-';
+	}
+	std::swap(result, *this);
 	return *this;
 }
 
+
 BigInt BigInt::operator*(BigInt& other)
 {
-	return *this;
+	BigInt temp(*this);
+	temp *= other;
+	return temp;
 
 }
 

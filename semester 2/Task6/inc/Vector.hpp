@@ -36,7 +36,7 @@ namespace my
 			set(m_len, value);
 			++m_len;
 		}
-		bool operator[](int index)
+		bool operator[](size_t index)
 		{
 			return (m_data[index/8] & (1 << (7 - index%8)));
 		}
@@ -53,7 +53,13 @@ namespace my
 		{
 			return m_len;
 		}
-		void insert();
-		void erase();
+		void insert(size_t index, bool value)
+		{
+
+		}
+		void erase(size_t index)
+		{
+
+		}
 	};
 }

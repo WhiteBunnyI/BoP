@@ -32,28 +32,12 @@ namespace my
 
 		friend std::istream& operator>>(std::istream& is, Matrix<T, N, M>& obj)
 		{
-			char str[10000];
-			is.getline(str, 10000);
-			int size = strlen(str);
-			int num = 0;
-			int count = 0;
-			for (int i = 0; i < size || num; i++)
+			for (int i = 0; i < N; i++)
 			{
-				if (count / M == N) break;
-				if (str[i] == ' ' || str[i] == '\0')
+				for (int o = 0; o < M; o++)
 				{
-					obj.m_matrix[count / M][count % M] = num;
-					++count;
-					num = 0;
-					continue;
+					is >> obj(i, o);
 				}
-				if (str[i] < '0' && str[i] > '9')
-				{
-					std::cerr << "Wrong char " << str[i] << std::endl;
-					break;
-				}
-				num *= 10;
-				num += str[i] - 48;
 			}
 
 			return is;
@@ -123,7 +107,7 @@ namespace my
 			return result;
 		}
 
-		Matrix& operator*(Matrix& other)
+		Matrix& operator*(T& other)
 		{
 			Matrix temp(*this);
 			temp *= other;

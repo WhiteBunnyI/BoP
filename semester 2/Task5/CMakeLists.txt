@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 include_directories("inc/")
 
 add_executable("${PROJECT_NAME}" main.cpp
-		inc/Matrix.hpp src/Matrix.cpp)
+		inc/Matrix.hpp)
 
 set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT "${PROJECT_NAME}")
 

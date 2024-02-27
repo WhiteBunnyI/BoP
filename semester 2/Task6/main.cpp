@@ -1,6 +1,6 @@
 #include <Vector.hpp>
 int main()
-{
+{  
 	my::Vector<bool> vec(1);
 	vec.push_back(true);
 	vec.push_back(false);

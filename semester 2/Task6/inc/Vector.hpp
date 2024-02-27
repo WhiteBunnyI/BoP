@@ -65,11 +65,11 @@ namespace my
 		}
 
 		void insert(size_t index, bool value)
-		{
-			if (m_len + 1 >= m_capacity * 8)
-				resize(m_len + 1);
-			for (int i = m_len + 1; i > index; i--)
-			{
+		{														
+			if (m_len + 1 >= m_capacity * 8)					
+				resize(m_len + 1);								
+			for (int i = m_len + 1; i > index; i--)				
+			{													
 				set(i, (*this)[i - 1]);
 			}
 			set(index, value);
